@@ -12,5 +12,5 @@ Modul: STAT (Statistics for Data Science)
     - SW01 - Deskriptive Statistik
     - SW02 - Deskriptive Statistik
     - SW03 - Stetige Wahrscheinlichkeitsverteilungen
-    - SW04 - Gesetz der Grossen Zahlen, Zentraler Grenzwertsat
+    - SW04 - Gesetz der Grossen Zahlen, Zentraler Grenzwertsatz
 
