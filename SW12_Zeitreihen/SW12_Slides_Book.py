@@ -6,6 +6,8 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+from pandas.plotting import lag_plot
+from statsmodels.tsa.seasonal import seasonal_decompose
 
 # =============================================================================
 # helper methods
@@ -76,6 +78,49 @@ plt.legend(["Original", "zurückverschoben", "vorverschoben"])
 
 plt.show()
 
+# Bewegendes Mittel (moving average)
+AirP["Trend"] = AirP["Passengers"].rolling(window = 12).mean()
+AirP["Passengers"].plot()
+AirP["Trend"].plot()
+
+plt.legend(["Daten","Trend"])
+plt.show()
+
+AirP["Season"] = AirP["Passengers"] - AirP["Trend"]
+AirP["Season"].plot()
+plt.show()
+
+# Gemittelte Saisonalität
+# AirP["Season"] wird in eine Matrix umgewandelt
+# mit den Monaten als Spalten (Jahre als Zeilen)
+
+AirP2 = AirP["Season"].values.reshape((12, 12))
+# Entlang der Spalten (axis=0) wird der Mittelwert genommen
+# nanmean bedeutet, die NaN werden ignoriert
+
+ave = np.nanmean(AirP2, axis = 0)
+# Der Vektor ave wird verzwölfacht
+# damit er wieder die gleiche Länge hat, wie AirP["Season"]
+
+AirP["Season_ave"] = np.tile(A = ave, reps = 12)
+AirP["Season_ave"].plot()
+plt.show()
+
+AirP["Residual"] = AirP["Season"] - AirP["Season_ave"]
+AirP["Residual"].plot()
+plt.show()
+
+
+seasonal_decompose(AirP["Passengers"], model = "additive", freq = 12).plot()
+plt.show()
+
+seasonal_decompose(np.log(AirP["Passengers"]), model = "add").resid.plot()
+plt.show()
+
+
+from stldecompose import decompose
+decompose(np.log(AirP["Passengers"]), period = 12).plot();
+
 # =============================================================================
 # vierteljährliche Bierproduktion in Australien (in Megaliter) zwischen 
 # März 1956 und Juni 1994
@@ -124,6 +169,78 @@ Aussie.set_index("Quarter", inplace = True)
 Aussie.plot(subplots = True)
 plt.xlabel("Jahr in Quartal")
 plt.show()
+
+
+
+# =============================================================================
+# Luftqualität
+# =============================================================================
+AirQ = pd.read_csv("data/AirQualityUCI.csv", sep = ";", decimal = ",")
+AirQ.head()
+
+AirQ1 = AirQ.copy()
+
+# pandas kennt das Zeitformat in der Tabelle nicht:
+#Punkt muss durch - ersetzt werden
+AirQ1["Time"] = AirQ1["Time"].str.replace(".", "-")
+AirQ1["Date"] = pd.DatetimeIndex(AirQ1["Date"] + " " + AirQ1["Time"])
+AirQ1.set_index("Date", inplace = True)
+
+# Einige Wert der Temperatur sind -200. Diese Zeilen werden weggelassen
+AirQ1 = AirQ1[AirQ1["T"] > -200]
+AirQ1["T"].plot()
+plt.show()
+
+AirQ4 = AirQ1.loc["2004-3-10" : "2004-3-30" , "T"]
+AirQ4.plot()
+
+# Die Option by = "Time" erreicht, dass für jede Stunde ein Boxplot erzeugt wird.
+AirQ1.boxplot("T", by = "Time", rot = 45)
+plt.show()
+
+plt.subplot(121)
+lag_plot(AirQ4)
+# Ohne Lag => Korrelation zu der benachbarten Stunde
+
+plt.subplot(122)
+lag_plot(AirQ4, 15)
+
+
+import time
+for i in range(1, 24):
+    lag_plot(AirQ4, i)
+    plt.show()
+    time.sleep(1)
+
+plt.show()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
