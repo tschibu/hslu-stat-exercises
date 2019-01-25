@@ -161,6 +161,10 @@ anova_lm(fit113)
 
 
 # c)
+fit113 = ols("DIVERSITY ~ C(ZNGROUP,Sum)", data=stream).fit()
+fit113.summary()
 
 
-
+# d)
+fit = ols("DIVERSITY ~ C(ZNGROUP,Sum) * C(STREAM,Sum)", data=dfStream).fit()
+anova_lm(fit)
