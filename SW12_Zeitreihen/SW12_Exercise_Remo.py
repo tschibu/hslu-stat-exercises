@@ -108,16 +108,62 @@ AusBeer_stl.plot()
 # Aufgabe 12.3
 # =============================================================================
 
+# =============================================================================
+# Helper Method
+# =============================================================================
+def boxcox(x,lamdb):
+    return np.log(x) if (lamdb==0) else (x**lamdb-1/lamdb)
+
+
+Electricity = pd.read_csv("data/AustralianElectricity.csv", sep = ";", header = 0)
+Electricity.head
+Electricity["Quarter"] = pd.DatetimeIndex(Electricity["Quarter"])
+Electricity.set_index("Quarter", inplace=True)
+Electricity.columns=["Electricity production Australia"]
+Electricity.head()
+Electricity.plot()
+plt.ylabel("Million Kilowatthours")
+plt.show()
+
+
+# b)
+Electricity_tr = boxcox(Electricity, 0.3)
+Electricity_tr.plot()
+plt.show()
+
+# Box-Cox-Transformationen
+#Electricity["l02"] = boxcox(Electricity, 0.2)
+#Electricity["l05"] = boxcox(Electricity, 0.5)
+#Electricity["l1"]  = boxcox(Electricity, 1)
+#
+#plt.subplot(221)
+#Electricity.plot()
+#plt.title("Original")
+#plt.xlabel("")
+#
+#plt.subplot(222)
+#Electricity["l_02"].plot()
+#plt.title("lambda = 0.2")
+#plt.xlabel("")
+#
+#plt.subplot(223)
+#Electricity["l_05"].plot()
+#plt.title("lambda = 0.5")
+#plt.xlabel("")
+#
+#plt.subplot(224)
+#Electricity["l_01"].plot()
+#plt.title("lambda = 1")
+#plt.xlabel("")
+#
+#plt.show()
 
 
 
+# c)
+seasonal_decompose(Electricity_tr, model="additive", freq=4).plot()
+plt.show()
 
-
-
-
-
-
-
-
-
-
+# d)
+Electricity_stl = decompose(Electricity_tr, period=4)
+Electricity_stl.plot();
