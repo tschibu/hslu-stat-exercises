@@ -85,9 +85,39 @@ plt.ylabel("Megalitres Beer")
 plt.show()
 
 
+# b)
+AusBeer.resample("A").mean().plot()
+AusBeer['quarter'] = AusBeer.index.quarter
+AusBeer.boxplot(by="quarter")
+
+# Lösung:   In den Sommermonaten in Australien wird mehr Bier getrunken als im
+#           Winter. 
+
+# c)
+seasonal_decompose(AusBeer["Megalitres"], model="additive", freq=4).plot()
+# Die Graphik der Zeitreihe aus Teilaufgabe (a) legt nahe, dass die saisonalen
+# Effekte ziemlich stabil über den Zeitraum verteilt sind, d.h. die Varianz
+# über die Zeit kann als konstant betrachtet werden. Für die Zerlegung ist 
+# somit keine Transformation nötig.
+
+# d)
+AusBeer_stl = decompose(AusBeer["Megalitres"], period=12)
+AusBeer_stl.plot()
+
 # =============================================================================
 # Aufgabe 12.3
 # =============================================================================
+
+
+
+
+
+
+
+
+
+
+
 
 
 
