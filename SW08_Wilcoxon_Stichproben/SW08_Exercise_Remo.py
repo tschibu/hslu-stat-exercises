@@ -80,11 +80,15 @@ st.mannwhitneyu(jackals["M"], jackals["W"], alternative = "two-sided")
 zurich = pd.Series([16.6, 12.7, 14, 53.3, 117, 62.6, 27.6])
 basel = pd.Series([10.4,8.91,11.7,29.9,46.3,25,29.4])
 
+# a)
+# dass in Zürich viel mehr Drogen konsumiert werden als anderswo.
+# Aufgrund dieser Aussage wird Zürich - Basel gerechnet
 diff = zurich - basel
 diff.describe()
 
 diffMean = diff.mean()
 diffSdt = diff.std()
+
 mu0 = 0
 st.probplot(diff, plot=plt)
 
@@ -92,10 +96,11 @@ st.probplot(diff, plot=plt)
 # ungepaarter Test, gemessen wurden zwar an der gleichen Tage, aber an verschiedenen Lokalitäten, Messgeräte
 
 # c)
-# Nullhypothese - beide Städte konsumieren gleich vile MDMA
+# Nullhypothese - beide Städte konsumieren gleich viele MDMA
 # Alternativhypothese - Zürich wird mehr MDMA konsumiert als in Basel
 
 
+# d)
 ## HIER DAS BEISPIEL FÜR GEPAARTE WERTE
 
 ## t-test
@@ -107,11 +112,10 @@ st.t.ppf(q = 0.95, df = 6, loc = 0, scale=diffSdt/np.sqrt(diff.count()))
 # ist gleich wie t.sf.
 st.t.sf(x=diff.mean(), df = 6, loc = 0,  scale=diffSdt/np.sqrt(diff.count()))
 
-
 ## t-test
 st.ttest_ind(zurich, basel, equal_var=False)
 
-
+# e)
 # Willcox
 st.mannwhitneyu(zurich, basel, alternative = "greater")
 
