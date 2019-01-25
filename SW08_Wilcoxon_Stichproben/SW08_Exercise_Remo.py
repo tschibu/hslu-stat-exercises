@@ -90,6 +90,8 @@ diffMean = diff.mean()
 diffSdt = diff.std()
 
 mu0 = 0
+st.probplot(zurich, plot=plt)
+st.probplot(basel, plot=plt)
 st.probplot(diff, plot=plt)
 
 # b)
@@ -98,7 +100,6 @@ st.probplot(diff, plot=plt)
 # c)
 # Nullhypothese - beide Städte konsumieren gleich viele MDMA
 # Alternativhypothese - Zürich wird mehr MDMA konsumiert als in Basel
-
 
 # d)
 ## HIER DAS BEISPIEL FÜR GEPAARTE WERTE

@@ -52,3 +52,10 @@ print(LamdaGeschaetzt)
 st.binom.pmf(k=58, n=100, p=0.5)
 st.binom.pmf(k=58, n=100, p=0.6)
 
+
+
+
+from sympy.solvers import solve
+from sympy import Symbol
+x = Symbol('x')
+solve(x**2/9000 * (15/2 - x/12) - 0.9, x)
