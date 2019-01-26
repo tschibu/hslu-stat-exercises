@@ -50,12 +50,12 @@ st.probplot(gamma["gamma"], plot = plt)
 st.norm.ppf(q = 0.98, loc =1 )
 ## Falsch!
 
+
 # =============================================================================
 # Aufgabe Plot
 # =============================================================================
 
 # Lösung (x) -> Ungefähr 50% der Werte befinden sicher ausserhalb der Box
-
 
 # =============================================================================
 # Aufgabe Ueberzeit
@@ -73,6 +73,34 @@ print("Mann geht von einer Normalverteilung aus, da ein Arbeiter mal 2 min Über
 
 print("B -> 1 / A -> 3 / C -> 2")
 
+
 # =============================================================================
 # Quizfrage 06
 # =============================================================================
+schoko = pd.read_csv("data/Schokolade_Nobelpreis.txt", delim_whitespace = True)
+schoko.corr()
+print("Die Korrelation zwischen Schockolade und dem Nobelpreis ist bei: 0.75859." )
+
+
+# =============================================================================
+# Quizfrage 07
+# =============================================================================
+
+# Lösung
+print("Aus einem linearen Zusammenhang kann nicht automatisch auf einen kausalen Zusammenhang geschlossen werden!")
+
+
+# =============================================================================
+# Quizfrage 08
+# =============================================================================
+
+# Lösung:
+print("Seit x1...xn eine i.i.d. Stichprobe positiver Daten einer Zufallsvaraible X..")
+
+
+# =============================================================================
+# Quizfrage 09
+# =============================================================================
+
+# Lösung
+print("B -> 4 / D -> 1 / C -> 3 / A -> 2)
