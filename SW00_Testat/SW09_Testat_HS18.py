@@ -103,4 +103,4 @@ print("Seit x1...xn eine i.i.d. Stichprobe positiver Daten einer Zufallsvaraible
 # =============================================================================
 
 # Lösung
-print("B -> 4 / D -> 1 / C -> 3 / A -> 2)
+print("B -> 4 / D -> 1 / C -> 3 / A -> 2)")
