@@ -49,6 +49,9 @@ print("Weiter Lösung von P-Value via: ttest_1samp" + str(p_value_t_test_gamma))
 st.probplot(gamma["gamma"], plot = plt)
 st.t.ppf(q = 0.96, loc=gamma["gamma"].mean(), df=gamma["gamma"].count() - 1, scale=gamma["gamma"].std()/np.sqrt(gamma["gamma"].count()))
 
+# andere Option
+st.t.interval(alpha=0.92, loc = gamma["gamma"].mean(), df=gamma["gamma"].count()-1, scale=gamma["gamma"].std()/np.sqrt(gamma["gamma"].count()))
+
 # =============================================================================
 # Aufgabe Plot
 # =============================================================================

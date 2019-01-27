@@ -42,3 +42,10 @@ st.t.interval(alpha=0.90, df=cloud.count()-1, loc=cloud.mean(), scale=cloud.std(
 beer = pd.Series([56, 59, 49, 51, 58, 57, 52, 57, 52, 57, 50, 57, 58, 54, 59])
 beer.describe()
 
+st.probplot(beer, plot=plt)
+
+beer_arr = beer - beer.mean()
+st.wilcoxon(beer_arr, zero_method="wilcox", correction=True)
+
+
+st.binom_test(x=9, n=beer.count(), p=0.5, alternative="less")
