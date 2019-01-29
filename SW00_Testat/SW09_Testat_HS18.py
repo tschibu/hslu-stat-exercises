@@ -40,7 +40,9 @@ print("P-Value von T-Test " + str(p_value_t_test_gamma))
 ## Lösung => 0.1532
 ## Weiter Lösung:
 pvalue_do = st.ttest_1samp(gamma["gamma"], popmean=1).pvalue/2
-print("Weiter Lösung von P-Value via: ttest_1samp" + str(p_value_t_test_gamma))
+print("Weiter Lösung von P-Value via: pvalue_do -> " + str(pvalue_do))
+
+st.t.cdf(x=gamma["gamma"].mean() , df=gamma["gamma"].count()-1, loc=1, scale=gamma["gamma"].std()/np.sqrt(gamma["gamma"].count()))
 
 # =============================================================================
 # Aufgabe 3c
